@@ -89,6 +89,10 @@ class Insurer extends Model
     public function getValueBasedMultiplier(float $claimAmount): float 
     {
         // Tiered multiplier system based on claim value
+        // - Thresholds reflect business-defined "high value" breakpoints, not the statistical average.
+        // - Keep these in sync with batching normalization logic (see Claim::getOptimalityScore()).
+        // - For future flexibility, we can consider replacing hardcoded values with a data-driven approach
+        //   (e.g. rolling median, percentiles, or a configurable value).
         if ($claimAmount >= 25000) return 2.0;      // Very high value: +100% (extensive review)
         if ($claimAmount >= 15000) return 1.7;      // High value: +70% (detailed review)
         if ($claimAmount >= 10000) return 1.5;      // Medium-high: +50% (enhanced review)

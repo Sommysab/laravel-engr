@@ -80,6 +80,12 @@ class Claim extends Model
     {
         // Higher score = better for batching (considering priority and amount)
         $priorityWeight = $this->priority_level * 0.3;
+        
+        // Amount weight normaliser.
+        //  - 10 000 is the business-defined pivot where “large” claims reach max weight.
+        //  - Keep in sync with the tiers in Insurer::getValueBasedMultiplier().
+        //  - Replace with a data-driven value (e.g. rolling 3-month median * 1.5),
+        //    or move to config('claims.amount_normaliser') when we need it to adapt.
         $amountWeight = min(($this->total_amount / 10000), 1) * 0.7; // Normalize large amounts
         
         return $priorityWeight + $amountWeight;

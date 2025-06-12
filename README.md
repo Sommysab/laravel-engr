@@ -246,14 +246,11 @@ curl -X POST "http://127.0.0.1:8000/api/v1/claims" \
   }'
 ```
 
-### 7. Optional: Generate Test Data
+### 7. Optional: Comprehensive Unit Test
 
 ```bash
-# Create sample claims for testing the batching algorithm
-php artisan make:test-batch
-
-# Process ready batches
-php artisan batch:process
+# Run unit tests
+php artisan test
 ```
 
 ## Accessing the Application

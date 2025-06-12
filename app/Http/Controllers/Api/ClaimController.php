@@ -26,8 +26,6 @@ class ClaimController extends Controller
     public function index(Request $request): JsonResponse
     {
         $query = Claim::with(['items', 'batch', 'insurer']);
-
-        Log::info('TESTING...........');
         
         // Apply filters based on query parameters
         if ($request->has('provider_name')) {
